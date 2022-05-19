@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<title>Contract overview - My Docs</title>
+<link href="../../css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" rel="stylesheet"/>
+<script defer="" src="../../js/jquery-1.10.2.min.js"></script>
+<script defer="" src="../../js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+<div class="container">
+<a class="navbar-brand" href="../..">My Docs</a>
+<!-- Expander button -->
+<button class="navbar-toggler" data-target="#navbar-collapse" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<!-- Expanded navigation -->
+<div class="navbar-collapse collapse" id="navbar-collapse">
+<!-- Main navigation -->
+<ul class="nav navbar-nav">
+<li class="navitem">
+<a class="nav-link" href="../..">Welcome to MkDocs</a>
+</li>
+<li class="dropdown active">
+<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Entities <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li>
+<a class="dropdown-item" href="../contract-request/">Contract request overview</a>
+</li>
+<li>
+<a class="dropdown-item active" href="./">Contract overview</a>
+</li>
+<li>
+<a class="dropdown-item" href="../foo/">Foo</a>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav ml-auto">
+<li class="nav-item">
+<a class="nav-link" data-target="#mkdocs_search_modal" data-toggle="modal" href="#">
+<i class="fa fa-search"></i> Search
+                            </a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="../contract-request/" rel="prev">
+<i class="fa fa-arrow-left"></i> Previous
+                                </a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="../foo/" rel="next">
+                                    Next <i class="fa fa-arrow-right"></i>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<div class="navbar-header">
+<button class="navbar-toggler collapsed" data-target="#toc-collapse" data-toggle="collapse" title="Table of Contents" type="button">
+<span class="fa fa-angle-down"></span>
+</button>
+</div>
+<div class="navbar-collapse collapse card bg-secondary" id="toc-collapse">
+<ul class="nav flex-column">
+<li class="nav-item" data-level="1"><a class="nav-link" href="#contract-overview">Contract overview</a>
+<ul class="nav flex-column">
+<li class="nav-item" data-level="2"><a class="nav-link" href="#lifecycle">Lifecycle</a>
+<ul class="nav flex-column">
+</ul>
+</li>
+<li class="nav-item" data-level="2"><a class="nav-link" href="#statuses">Statuses</a>
+<ul class="nav flex-column">
+</ul>
+</li>
+<li class="nav-item" data-level="2"><a class="nav-link" href="#transitions">Transitions</a>
+<ul class="nav flex-column">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div></div>
+<div class="col-md-9" role="main">
+<h1 id="contract-overview">Contract overview</h1>
+<p>A contract is a set of information and documentation about a product sold to a client, it has all the information about the product, all legal documents required to establish a legal relationship with the client.</p>
+<h2 id="lifecycle">Lifecycle</h2>
+<ol>
+<li>A new contract is created with data that comes from an external source(e.g Vanex)</li>
+<li>A contract is reviewed by a "contracts execute"</li>
+<li>A contract can be approved or rejected</li>
+<li>If contract is approved a set of documents will be generated and send to sign to client</li>
+<li>If contract is rejected there is not further actions to be done, a new process should start with a new contract</li>
+</ol>
+<h2 id="statuses">Statuses</h2>
+<p>Most statuses in a contract are defined and transitioned because of external agents, like sign providers.</p>
+<table>
+<thead>
+<tr>
+<th>status</th>
+<th>description</th>
+<th>possible actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>new</td>
+<td>starting status for all the contracts</td>
+<td>you can approve a contract</td>
+</tr>
+<tr>
+<td>approved</td>
+<td>contract was reviewed by a executive, this revision includes documents and filled information</td>
+<td>no actions possible</td>
+</tr>
+<tr>
+<td>sent</td>
+<td>contract was sent to client to be signed</td>
+<td>no actions possible</td>
+</tr>
+<tr>
+<td>voided</td>
+<td>contract was voided by an executive, a possible reason can be because the client requested it or because there was a problem and we need to generate a new contract</td>
+<td>no actions possible</td>
+</tr>
+<tr>
+<td>signed</td>
+<td>contrat was signed by client</td>
+<td>no actions possible</td>
+</tr>
+<tr>
+<td>declined</td>
+<td>contract was declined by client</td>
+<td>no actions possible</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transitions">Transitions</h2>
+<div class="mermaid">stateDiagram-v2
+    direction LR
+    new --&gt; approved
+    new --&gt; voided
+    approved --&gt; sent
+    sent --&gt; voided
+    sent --&gt; signed
+    sent --&gt; declined
+</div>
+<h3 id="new-contract">New contract</h3>
+<p>A contract was just created and waiting for revision</p>
+<h3 id="approved-contract">Approved contract</h3>
+<p>A contract was reviewed by an execute and was marked to proceed</p>
+<h3 id="sent-contract">Sent contract</h3>
+<p>All the document associated the product sold in the contract were generated and been, using a signing provider, sent to client. At this point we wait for client response.</p>
+<h3 id="voided-contract">Voided contract</h3>
+<p>In some cases a contract can be voided before the client sign it, maybe because there were errors in the input data of some other reason. In this case we contact the signing provider to void the documents sent, so client won't be able to sign them and we can generate a new contract.</p>
+<h3 id="signed-contract">Signed contract</h3>
+<p>Client accept and sign the contract, at this point we can execute some post signing processes like notifying other systems, e.g Berex in the case a RTD product was sold.</p>
+<h3 id="declined-contract">Declined contract</h3>
+<p>Client declines the contract, there can be many reasons, maybe the client found some inconsistencies in the documents or they just change their mind about acquiring the product.</p></div>
+</div>
+</div>
+<footer class="col-md-12">
+<hr/>
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+</footer>
+<script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+<script defer="" src="../../js/base.js"></script>
+<script defer="" src="../../search/main.js"></script>
+<div aria-hidden="true" aria-labelledby="searchModalLabel" class="modal" id="mkdocs_search_modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="searchModalLabel">Search</h4>
+<button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+</div>
+<div class="modal-body">
+<p>From here you can search these documents. Enter your search terms below.</p>
+<form>
+<div class="form-group">
+<input class="form-control" id="mkdocs-search-query" placeholder="Search..." title="Type search term here" type="search"/>
+</div>
+</form>
+<div data-no-results-text="No results found" id="mkdocs-search-results"></div>
+</div>
+<div class="modal-footer">
+</div>
+</div>
+</div>
+</div><div aria-hidden="true" aria-labelledby="keyboardModalLabel" class="modal" id="mkdocs_keyboard_modal" role="dialog" tabindex="-1">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+<button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+</div>
+<div class="modal-body">
+<table class="table">
+<thead>
+<tr>
+<th style="width: 20%;">Keys</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="help shortcut"><kbd>?</kbd></td>
+<td>Open this help</td>
+</tr>
+<tr>
+<td class="next shortcut"><kbd>n</kbd></td>
+<td>Next page</td>
+</tr>
+<tr>
+<td class="prev shortcut"><kbd>p</kbd></td>
+<td>Previous page</td>
+</tr>
+<tr>
+<td class="search shortcut"><kbd>s</kbd></td>
+<td>Search</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="modal-footer">
+</div>
+</div>
+</div>
+</div>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script><script>mermaid.initialize({});</script></body>
+</html>

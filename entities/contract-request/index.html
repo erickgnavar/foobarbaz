@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<title>Contract request overview - My Docs</title>
+<link href="../../css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" rel="stylesheet"/>
+<script defer="" src="../../js/jquery-1.10.2.min.js"></script>
+<script defer="" src="../../js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+<div class="container">
+<a class="navbar-brand" href="../..">My Docs</a>
+<!-- Expander button -->
+<button class="navbar-toggler" data-target="#navbar-collapse" data-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<!-- Expanded navigation -->
+<div class="navbar-collapse collapse" id="navbar-collapse">
+<!-- Main navigation -->
+<ul class="nav navbar-nav">
+<li class="navitem">
+<a class="nav-link" href="../..">Welcome to MkDocs</a>
+</li>
+<li class="dropdown active">
+<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Entities <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li>
+<a class="dropdown-item active" href="./">Contract request overview</a>
+</li>
+<li>
+<a class="dropdown-item" href="../contract/">Contract overview</a>
+</li>
+<li>
+<a class="dropdown-item" href="../foo/">Foo</a>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav ml-auto">
+<li class="nav-item">
+<a class="nav-link" data-target="#mkdocs_search_modal" data-toggle="modal" href="#">
+<i class="fa fa-search"></i> Search
+                            </a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="../.." rel="prev">
+<i class="fa fa-arrow-left"></i> Previous
+                                </a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="../contract/" rel="next">
+                                    Next <i class="fa fa-arrow-right"></i>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<div class="navbar-header">
+<button class="navbar-toggler collapsed" data-target="#toc-collapse" data-toggle="collapse" title="Table of Contents" type="button">
+<span class="fa fa-angle-down"></span>
+</button>
+</div>
+<div class="navbar-collapse collapse card bg-secondary" id="toc-collapse">
+<ul class="nav flex-column">
+<li class="nav-item" data-level="1"><a class="nav-link" href="#contract-request-overview">Contract request overview</a>
+<ul class="nav flex-column">
+<li class="nav-item" data-level="2"><a class="nav-link" href="#lifecycle">Lifecycle</a>
+<ul class="nav flex-column">
+</ul>
+</li>
+<li class="nav-item" data-level="2"><a class="nav-link" href="#statuses">Statuses</a>
+<ul class="nav flex-column">
+</ul>
+</li>
+<li class="nav-item" data-level="2"><a class="nav-link" href="#transitions">Transitions</a>
+<ul class="nav flex-column">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div></div>
+<div class="col-md-9" role="main">
+<h1 id="contract-request-overview">Contract request overview</h1>
+<p>A contract request is a set of data to be reviewed in order to have a contract with a possible client. This is transition entity towards the main one which is a contract</p>
+<h2 id="lifecycle">Lifecycle</h2>
+<ol>
+<li>A new contract request is created with data that comes from an external source(e.g Vanex)</li>
+<li>A contract request is reviewed by a "contracts execute"</li>
+<li>If a contract request is approved its associated contract will be approved as well and start a process of generating documents and send them to client</li>
+<li>If a contract request is rejected a notification will be sent to the external service which create the contract request</li>
+</ol>
+<h2 id="statuses">Statuses</h2>
+<p>Most statuses in a contract request are defined by the action of an executive.</p>
+<table>
+<thead>
+<tr>
+<th>status</th>
+<th>description</th>
+<th>possible actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pending_review</td>
+<td>initial status, it will be used when we create the record</td>
+<td>you can approve or reject a contract request</td>
+</tr>
+<tr>
+<td>approved</td>
+<td>contract request was approved by an executive</td>
+<td>no actions possible</td>
+</tr>
+<tr>
+<td>rejected</td>
+<td>contract request was rejected by an executive</td>
+<td>no actions possible</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transitions">Transitions</h2>
+<div class="mermaid">stateDiagram-v2
+    direction LR
+    pending_review --&gt; in_review
+    in_review --&gt; approved
+    in_review --&gt; rejected
+</div>
+<h3 id="new-contract-request">New contract request</h3>
+<p>A contract request just created and waiting for revision</p>
+<h3 id="approved-contract-request">Approved contract request</h3>
+<p>A contract request already reviewed by an execute and was marked to proceed, all its information is valid so we can proceed with its workflow</p>
+<h3 id="rejected-contract-request">Rejected contract request</h3>
+<p>A contract request was reviewed and the executive decided to rejected, this can be possible because there were wrong information or other reason</p>
+<p><link href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css" rel="stylesheet" type="text/css"/></p>
+<div id="swagger-ui">
+</div>
+<script charset="UTF-8" src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+<script>
+    const ui = SwaggerUIBundle({
+    url: 'contract.json',
+    dom_id: '#swagger-ui',
+    })
+</script></div>
+</div>
+</div>
+<footer class="col-md-12">
+<hr/>
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+</footer>
+<script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+<script defer="" src="../../js/base.js"></script>
+<script defer="" src="../../search/main.js"></script>
+<div aria-hidden="true" aria-labelledby="searchModalLabel" class="modal" id="mkdocs_search_modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="searchModalLabel">Search</h4>
+<button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+</div>
+<div class="modal-body">
+<p>From here you can search these documents. Enter your search terms below.</p>
+<form>
+<div class="form-group">
+<input class="form-control" id="mkdocs-search-query" placeholder="Search..." title="Type search term here" type="search"/>
+</div>
+</form>
+<div data-no-results-text="No results found" id="mkdocs-search-results"></div>
+</div>
+<div class="modal-footer">
+</div>
+</div>
+</div>
+</div><div aria-hidden="true" aria-labelledby="keyboardModalLabel" class="modal" id="mkdocs_keyboard_modal" role="dialog" tabindex="-1">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+<button class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+</div>
+<div class="modal-body">
+<table class="table">
+<thead>
+<tr>
+<th style="width: 20%;">Keys</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="help shortcut"><kbd>?</kbd></td>
+<td>Open this help</td>
+</tr>
+<tr>
+<td class="next shortcut"><kbd>n</kbd></td>
+<td>Next page</td>
+</tr>
+<tr>
+<td class="prev shortcut"><kbd>p</kbd></td>
+<td>Previous page</td>
+</tr>
+<tr>
+<td class="search shortcut"><kbd>s</kbd></td>
+<td>Search</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="modal-footer">
+</div>
+</div>
+</div>
+</div>
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script><script>mermaid.initialize({});</script></body>
+</html>

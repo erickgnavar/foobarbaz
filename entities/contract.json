@@ -1,0 +1,153 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Sancus",
+    "description": "Document generation and sign API"
+  },
+  "servers": [
+    {
+      "url": "contratos.dev.resuelve.io"
+    },
+    {
+      "url": "contratos.sandbox.resuelve.io"
+    },
+    {
+      "url": "contratos.resuelve.io"
+    }
+  ],
+  "paths": {
+    "/contract-requests": {
+      "post": {
+        "description": "Creates a new Contract Request. If no contract uid is specified a new contract will be created as well.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_uid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "contract_request_uid": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request [Falta definir bien una estructura estandar para errores]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/{contract_uid}/documents": {
+      "get": {
+        "description": "Retrieves the contract documents. If the contract is signed this will show the signed documents",
+        "parameters": [
+          {
+            "name": "contract_uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "signed_url": {
+                        "type": "string",
+                        "format": "url"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid contract UUID"
+          }
+        }
+      }
+    },
+    "/contracts/{contract_uid}/void": {
+      "put": {
+        "description": "Invalidates a contract. This will make this contract unusignable",
+        "parameters": [
+          {
+            "name": "contract_uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succcessful response"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "detail": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid contract UUID"
+          }
+        }
+      }
+    }
+  }
+}
